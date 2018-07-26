@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="email=no" name="format-detection" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="js/jquery-1.8.3.js"></script>
+    <script type="text/javascript">
+        var useragent = navigator.userAgent;
+        if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+            // 这里警告框会阻塞当前页面继续加载
+            alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+            // 以下代码是用javascript强行关闭当前页面
+            var opened = window.open('about:blank', '_self');
+            opened.opener = null;
+            opened.close();
+        };
+
+        var url = encodeURIComponent(location.href.split('#')[0]) ;
+        $.ajax({
+            url : '/card/getSignature?url=' + url,
+            type : 'get',
+            dataType : 'json',
+            success : function(data) {
+                url = data.url;
+                jsapi_ticket = data.jsapi_ticket;
+                nonceStr = data.nonceStr;
+                timestamp = data.timestamp;
+                signature = data.signature;
+                appId = data.appId;
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: appId, // 必填，公众号的唯一标识
+                    timestamp: timestamp, // 必填，生成签名的时间戳
+                    nonceStr: nonceStr, // 必填，生成签名的随机串
+                    signature: signature,// 必填，签名，见附录1
+                    jsApiList: ['chooseCard','addCard','openCard','consumeAndShareCard','getLocation','getNetworkType','closeWindow'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+                wx.error(function(res){
+
+                });
+
+
+                wx.ready(function () {
+                    //地理位置
+                    $.ajax({
+                        url : '/card/getWxCardSignature?openid='+ $("#openid").val(),
+                        type : 'get',
+                        dataType : 'json',
+                        success : function(data) {
+                            var card_id = data.card_id;
+                            var openid = data.openid;
+                            var timestamp = data.timestamp;
+                            var signature = data.signature;
+                            //投放卡券到用户卡包
+                            wx.addCard({
+                                cardList: [{
+                                    cardId: card_id,
+                                    cardExt: '{"timestamp":"'+ timestamp +'","openid":"'+openid+'","signature":"'+signature+'"}'
+                                }], // 需要添加的卡券列表
+                                success: function (res) {
+                                }
+                            });
+                        }
+                    });
+                });
+
+            }
+        });
+
+    </script>
+
+</head>
+<body>
+<input hidden="hidden" id="openid" value="${openid }"/>
+</body>
+</html>

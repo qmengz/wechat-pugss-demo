@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <title>邀请记录</title>
+
+    <link href="../js/jquery-weui/css/weui.min.css" type="text/css" rel="stylesheet" />
+    <link href="../js/jquery-weui/css/jquery-weui.css" type="text/css" rel="stylesheet" />
+    <link href="../styles/comm.css" type="text/css" rel="stylesheet" />
+</head>
+<body class="bg-grey invitationlistcontain">
+    <div class="bg-grey">
+        <!--平台选项卡-->
+        <div class="weui-tab">
+            <div id="list"></div>
+        </div>
+    </div>
+    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../js/jquery-weui/jquery-weui.min.js" type="text/javascript"></script>
+    <script src="../js/template.js" type="text/javascript"></script>
+    <script src="../js/commFunc.js"></script>
+    <script id="invitationlist" type="text/html">
+        {{if data}}
+            {{each data as invitation}}
+                 <div class="invitation-info">
+                    <div class="weui-panel">
+                        <div class="weui-panel__bd">
+                            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                                <div class="weui-media-box__hd" style="border-radius: 50%;">
+                                    <img class="weui-media-box__thumb" src="../assets/images/logo.png">
+                                </div>
+                                <div class="weui-media-box__bd arrow">
+                                    <h4 class="weui-media-box__title txt-overflow mb02">{{invitation.inviteeName}}</h4>
+                                    <p class="weui-media-box__desc">{{invitation.refereeDate}}</p>
+                                </div>
+                                <span style="font-size: 0.8rem">邀请成功</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <div class="weui-loadmore no-data" style="margin: 4rem auto">
+                <img src="../assets/images/nodata.png" style="width: 100px;margin-left:-30px;"/>
+                <div style="color: #d8d6d6;font-size: 20px;">暂无邀请记录</div>
+                <div style="
+                    background:
+                     url(../assets/images/f2.jpg) no-repeat 13% 66%,
+                     url(../assets/images/f1.jpg) no-repeat 100% 15%;
+                     height: 186px;
+                    padding: 0 4%;
+                    background-size: 100px;
+                ">
+                    <button
+                        style="
+                            margin-top: 60px;
+                            width: 100%;
+                            font-size: 0.8rem;
+                            padding: 7px;
+                            background-color: #fff;
+                            border: solid 1px #666666;
+                            letter-spacing: 5px;
+                            color: #01000f;">
+                            立即邀请
+                    </button>
+                </div>
+            </div>
+        {{/if}}
+    </script>
+    <script>
+        var useragent = navigator.userAgent;
+        if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+            // 这里警告框会阻塞当前页面继续加载
+            alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+            // 以下代码是用javascript强行关闭当前页面
+            var opened = window.open('about:blank', '_self');
+            opened.opener = null;
+            opened.close();
+        };
+
+        $(function(){
+            var Page = {
+                initialize: function(){
+                    this.loadInvitationList();
+                    this.templateHelper();
+                    this.bindEvent();
+                },
+                bindEvent: function(){
+                    $("#list").on("click","button",function(){
+                        window.location.href = "invitation.html?share=true";
+                    });
+                },
+                templateHelper: function(){
+                    // template.helper('dataFormat', function (date) {
+                    //     return CommFunc.fFormatDate(date*1000);
+                    // });
+                    // template.helper('statusFormat', function (data,type) {
+                    //     if(type=='css'){
+                    //         return data!='1'?'used':'';
+                    //     }else {
+                    //         switch(data){
+                    //             case "1": return '邀请成功';
+                    //             default: return '邀请失败';
+                    //         }
+                    //     }
+                    // });
+                },
+                loadInvitationList: function(){
+                    var self=this;
+                    CommFunc.fAjax({
+                        url: CommFunc.baseUrl + 'mll-wechat/getReferees',
+                        type: 'get',
+                        data: {
+                            openid: localStorage.getItem('inviteCode')
+                        },
+                        needLoading: true,
+                        success: function(response) {
+                            var data = {};
+                            response && response.length>0 && (data = {data:response});
+                            var _html=template('invitationlist', data);
+                            document.getElementById('list').innerHTML = _html;
+                        }
+                    })
+                }
+            }
+            Page.initialize();
+        })
+    </script>
+</body>
+</html>

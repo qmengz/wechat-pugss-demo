@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <title>会员卡信息</title>
+    
+    <link href="../js/jquery-weui/css/weui.min.css" type="text/css" rel="stylesheet" />
+    <link href="../js/jquery-weui/css/jquery-weui.css" type="text/css" rel="stylesheet" />
+    <link href="../styles/comm.css" type="text/css" rel="stylesheet" />
+</head>
+<body class="bg-grey coupon">
+    <div class="bg-grey">
+        <!--平台选项卡-->
+        <!-- <div class="weui-tab">
+            <div id="couponDom"></div>
+        </div> -->
+        <!--个人信息表单，使用input用以以后扩展修改功能-->
+        <div class="weui-cells weui-cells_form customer-info">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" id="fullName" readonly>
+                </div>
+            </div>
+            <!-- <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">昵称</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" id="nickName" readonly>
+                </div>
+            </div> -->
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">手机</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" id="telephone" readonly>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" id="gender" readonly>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">生日</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" id="birth" readonly>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">推荐码</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" id="referee" readonly >
+                    <input type="hidden" id="exist" value="not_exist" >
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">兴趣爱好</label></div>
+                <div class="weui-cell__bd modify-cell">
+                    <input class="weui-input" type="text" id="avocation" readonly>
+                </div>
+            </div>
+            <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">身高<span style="font-size:.6rem">（cm）</span></label></div>
+                    <div class="weui-cell__bd modify-cell">
+                        <input class="weui-input" type="number" id="height" placeholder="请输入身高">
+                    </div>
+            </div>
+            <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">体重<span style="font-size:.6rem">（kg）</span></label></div>
+                    <div class="weui-cell__bd modify-cell">
+                        <input class="weui-input" type="number" id="weight" placeholder="请输入体重">
+                    </div>
+            </div>
+            <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">省份</label></div>
+                    <div class="weui-cell__bd modify-cell">
+                        <input class="weui-input" type="text" id="province" readonly>
+                    </div>
+            </div>
+            <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">城市</label></div>
+                    <div class="weui-cell__bd modify-cell" id="cityDom">
+                        <input class="weui-input" type="text" id="city" readonly>
+                    </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">区/县</label></div>
+                <div class="weui-cell__bd modify-cell" id="districtDom">
+                    <input class="weui-input" type="text" id="district" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="group-btn">
+            <a href="javascript:;" class="weui-btn weui-btn_primary" id="modify-btn">更新</a>
+        </div>
+    </div>
+    <div id="avocationPop" class="weui-popup__container popup-bottom">
+        <!-- <div class="weui-popup__overlay"></div> -->
+        <div class="weui-popup__modal">
+                <div class="toolbar">
+                    <div class="toolbar-inner">
+                        <a href="javascript:;" class="picker-button close-popup">完成</a>
+                        <h1 class="title">请选择兴趣爱好</h1>
+                    </div>
+                </div>
+                <div class="modal-content small-check">
+                        <div class="weui-cells weui-cells_checkbox">
+                            <div id="avocationDom"></div>                       
+                        </div>
+                </div>
+
+        </div>
+    </div>
+    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../js/jquery-weui/jquery-weui.min.js" type="text/javascript"></script>
+    <script src="../js/template.js" type="text/javascript"></script>
+    <script src="../js/commFunc.js"></script>
+    <script id="avocationList" type="text/html">
+        {{each data as avocation}}
+        <label class="weui-cell weui-check__label">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" check-data={{avocation}}>
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>{{avocation}}</p>
+                </div>
+        </label>
+        {{/each}}
+    </script>
+    <script>
+        var useragent = navigator.userAgent;
+        if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+            // 这里警告框会阻塞当前页面继续加载
+            alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+            // 以下代码是用javascript强行关闭当前页面
+            var opened = window.open('about:blank', '_self');
+            opened.opener = null;
+            opened.close();
+        } ;
+
+        $(function(){
+            var Page = {
+                provinceList:null,
+                cityList:null,
+                districtList:null,
+                customerInfo:null,
+                avocationList:['茶艺茶道','烹饪厨艺','香薰文化','创意插花','音乐欣赏','摄影拍照','医疗保健','旅游度假','文化教育','时尚穿搭'],
+                initialize: function(){
+                    this.templateAvocation();
+                    this.loadCustomerInfo();  
+                    this.bindEvent();                     
+                },
+                templateAvocation: function(){
+                    var _html=template('avocationList',{data:this.avocationList});
+                    document.getElementById('avocationDom').innerHTML = _html;  
+                },
+                bindEvent: function(){
+                    var self=this;
+                    $("#avocation").bind('click',function(){ 
+                        $("#avocationPop").popup();
+                    });
+                    $("#modify-btn").bind('click',function(){
+                        self.updateInfo();
+                    })
+                    $('#avocationPop').bind('click',function(){
+                        var avocationList=[];
+                        $("input[type='checkbox']:checked").each(function(){
+                            avocationList.push($(this).attr('check-data'));
+                        })
+                        $("#avocation").val(avocationList.join());
+                    })
+                },
+                resetPickerData:function(data){
+                    var rData={
+                        title:[],
+                        value:[]
+                    };
+                    data&&data.forEach(function(item){
+                        rData.title.push(item.name);
+                        rData.value.push(item.id);
+                    })
+                    return rData;
+                },
+                loadCustomerInfo: function(){
+                    var self=this;
+                    CommFunc.fAjax({
+                        url : CommFunc.baseUrl + 'mll-wechat/getCustomerInfo',
+                        type : 'get',
+                        data : {
+                            openid:CommFunc.fGetQuery('openid')
+                        },
+                        success : function(response) {
+                            self.customerInfo=response;
+                            var infoId=['fullName','telephone','gender','birth','referee','avocation','height','weight'];
+                            infoId.forEach(function(id){
+                                $('#'+id).val(response[id]);
+                            });
+                            if(response.avocation){
+                                var selectList=response.avocation.split(',');
+                                selectList.forEach(function(index){
+                                    $("input[check-data='"+index+"']").attr("checked","true");
+                                });
+                            };
+                            if(!$("#referee").val()){
+                                $("#referee").removeAttr("readonly");
+//                                $("#exist").val("exist");
+                            }
+                            self.loadProvince(response.province);
+                        }
+                    })
+                },
+                loadProvince: function(defaultId){
+                    var self=this;
+                    CommFunc.fAjax({
+                        url : CommFunc.baseUrl + 'mll-wechat/getAreas',
+                        type : 'get',
+                        data : {
+                            type: '1'
+                        },
+                        success : function(response) {
+                            self.provinceList=self.resetPickerData(response);
+                            //province默认值设置
+                            var _index;
+                            if(defaultId){
+                                _index=self.provinceList.value.indexOf(defaultId);
+                                self.provinceList.index=_index;
+                            }
+                            if(_index > -1){
+                                $('#province').val(self.provinceList.title[_index]);
+                                //city默认值设置
+                                self.loadCity(self.customerInfo.city);
+                                /*self.loadCity(function(){
+                                    if(self.customerInfo.city){
+                                        var city=self.customerInfo.city,
+                                            cityList =self.cityList;
+                                        var _index=cityList.value.indexOf(city);
+                                        
+                                        _index>-1 && ($("#city").val(cityList.title[_index])) && (cityList.index=_index);
+                                    }
+                                });*/
+                            }
+                            
+                            //初始化province选择器
+                            $("#province").picker({
+                                title: "请选择省份",
+                                cols: [
+                                    {
+                                        textAlign: 'center',
+                                        values: self.provinceList["title"]
+                                    }
+                                ],
+                                onClose: function(item) {
+                                    if(self.provinceList.index!=item.cols[0].activeIndex){
+                                        self.provinceList.index=item.cols[0].activeIndex;
+                                        // $("#city").val('');
+                                        self.loadCity();
+                                        self.loadDistrict() ;
+                                    }
+                                    
+                                }
+                            });
+                        }
+                    })
+                },
+//                loadCity: function(callback){
+                loadCity: function(defaultCityId){
+                    var self=this,
+                        province=self.provinceList,
+                        parent_id = province.value[province.index];
+                    CommFunc.fAjax({
+                        url : CommFunc.baseUrl + 'mll-wechat/getAreas',
+                        type : 'get',
+                        data : {
+                            type: '2',
+                            parent_id: parent_id
+                        },
+                        success : function(response) {
+                            self.cityList=self.resetPickerData(response);
+                            if(self.cityList){
+                               $("#cityDom input").remove();
+                               $("#cityDom").append($('<input class="weui-input" type="text" id="city" readonly />'));
+                            }
+
+                            var _indexCity;
+                            if(defaultCityId){
+                                _indexCity=self.cityList.value.indexOf(defaultCityId);
+                                self.cityList.index=_indexCity;
+                            }
+                            if(_indexCity > -1){
+                                $('#city').val(self.cityList.title[_indexCity]);
+                                //city默认值设置
+                                self.loadDistrict(function(){
+                                     if(self.customerInfo.district){
+                                         var district=self.customerInfo.district,
+                                                 districtList =self.districtList;
+                                         var _index=districtList.value.indexOf(district);
+
+                                         _indexCity>-1 && ($("#district").val(districtList.title[_index])) && (districtList.index=_index);
+                                     }
+                                });
+                            }
+//                            typeof callback == 'function' && callback();
+                            $("#city").picker({
+                                title: "请选择城市",
+                                cols: [
+                                    {
+                                        textAlign: 'center',
+                                        values: self.cityList["title"]
+                                    }
+                                ],
+                                onClose: function(item) {
+                                    if(self.cityList.index!=item.cols[0].activeIndex){
+                                        self.cityList.index=item.cols[0].activeIndex;
+                                        // $("#city").val('');
+                                        self.loadDistrict() ;
+                                    }
+
+//                                    self.cityList.index=item.cols[0].activeIndex;
+                                }
+                            });
+                        }
+                    })
+                },
+                loadDistrict: function(callback){
+                    var self=this,
+                            city=self.cityList,
+                            parent_id = city.value[city.index];
+                    CommFunc.fAjax({
+                        url : CommFunc.baseUrl + 'mll-wechat/getAreas',
+                        type : 'get',
+                        data : {
+                            type: '3',
+                            parent_id: parent_id
+                        },
+                        success : function(response) {
+                            if(self.districtList){
+                                $("#districtDom input").remove();
+                                $("#districtDom").append($('<input class="weui-input" type="text" id="district" readonly />'));
+                            }
+                            self.districtList=self.resetPickerData(response);
+                            typeof callback == 'function' && callback();
+                            $("#district").picker({
+                                title: "请选择区域",
+                                cols: [
+                                    {
+                                        textAlign: 'center',
+                                        values: self.districtList["title"]
+                                    }
+                                ],
+                                onClose: function(item) {
+                                    self.districtList.index=item.cols[0].activeIndex;
+                                }
+                            });
+                        }
+                    })
+                },
+                updateInfo:function(){
+                    /*if($("#exist").val() == "not_exist"){
+                        var referee = $("#referee").val() ;
+                        if(!referee){
+                            CommFunc.fAjax({
+                                url : CommFunc.baseUrl + 'mll-wechat/getMemberIsExist',
+                                type : 'get',
+                                data : {"referee":referee},
+                                success: function(response) {
+                                    if(response== "exist"){
+
+                                    }
+                                    location.reload() ;
+                                },
+                                error: function(){
+                                    $.toast("更新失败", "text");
+                                }
+                            })
+                        }
+                    }
+*/
+
+                    var self=this;
+                    var province = self.provinceList.index,city,district;
+                    if(province != undefined){
+                        province = self.provinceList.value[self.provinceList.index] ;
+                        city = self.cityList.index ;
+                        if(city != undefined){
+                            city = self.cityList.value[self.cityList.index] ;
+                            district = self.districtList.index ;
+                            if(district != undefined){
+                                district = self.districtList.value[self.districtList.index] ;
+                            }
+                        }
+                    }
+                    var params={
+                            openId:self.customerInfo.openId,
+                            fullName:self.customerInfo.fullName,
+                            telephone:self.customerInfo.telephone,
+                            gender:self.customerInfo.gender,
+                            birthday:self.customerInfo.birthday,
+                            avocation:$("#avocation").val(),
+                            height:$("#height").val(),
+                            weight:$("#weight").val(),
+                            referee:$("#referee").val(),
+                            province:province,
+                            city:city,
+                            district:district
+                        };
+                   CommFunc.fAjax({
+                        url : CommFunc.baseUrl + 'mll-wechat/updateInfo',
+                        type : 'post',
+                        data : params,
+                        success: function(response) {
+                            if(response == "ok"){
+                                $.toast("更新成功", "text");
+                                setTimeout("location.reload()",1500) ;
+                            }else if(response == "not_exist"){
+                                $.toast("更新失败，没有此推荐码", "text");
+                                setTimeout("location.reload()",1500) ;
+                            }else if(response == "not_my"){
+                                $.toast("更新失败，不能填自己的推荐码", "text");
+                                setTimeout("location.reload()",1500) ;
+                            }
+                        },
+                        error: function(){
+                            $.toast("更新失败", "text");
+                        }
+                    })
+                }
+            }
+            Page.initialize();
+        })
+    </script>
+</body>
+</html>

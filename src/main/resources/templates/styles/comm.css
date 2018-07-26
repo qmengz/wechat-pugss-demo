@@ -1,0 +1,362 @@
+/*******************默认通用样式修改******************************/
+/*字体,宽度等*/
+body,.content{
+	margin:0 auto;
+	font-size: .6rem;
+	max-width:640px;
+	color:#333;
+	overflow-x: hidden;
+	line-height:1.5;
+}
+* {
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+/*字体*/
+body,p,h1,h2,h3,h4,h5,h6,input,select{
+	font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "Heiti SC", Arial, sans-serif;
+}
+i{
+	font-style: normal;
+}
+/*******************公共******************************/
+.text-center{
+	text-align: center;
+}
+.block-center{
+	display: block;
+	margin:0 auto;
+}
+.text-right{
+	text-align: right;
+}
+.mb02{
+	margin-bottom:.115rem!important;
+}
+.img-block{
+	width:100%;
+	display: block;
+}
+.none{
+	display: none;
+}
+.content {
+	padding:.9rem 0;
+}
+.txt-overflow{
+	white-space: pre-wrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+	overflow: hidden;
+	line-height:1.2;
+}
+/*背景颜色*/
+.bg-grey{
+	background-color: #f6f6f6 !important;
+}
+.bg-image{
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+/*字体*/
+.font-white{
+	color:#fff!important;
+}
+/************按钮***********/
+.btn{
+	display: inline-block;
+	padding: 0.03rem 0.12rem;
+	/* border:0.01rem solid #ccc; */
+	text-align: center;
+	/* color:#333; */
+	color:#fff;
+	border-radius:0.05rem;
+	-moz-border-radius:0.05rem;
+	-webkit-border-radius:0.05rem;
+}
+.btn.btn_disabled{
+	border: 1px solid #bcbcbc;
+    color: #bcbcbc;
+}
+.btn-block{
+	margin:0.1rem auto;
+	display: block;
+	text-align: center;
+	border-radius:0.05rem;
+	-moz-border-radius:0.05rem;
+	-webkit-border-radius:0.05rem;
+	font-size: 0.18rem;
+	padding: 0.06rem 0;
+}
+a:not(.btn_disabled):active{
+	opacity: 0.6;
+}
+/*jqueryWeUI*/
+/*loading 弹出层*/
+.loading,
+.loading .loading_popbg,
+.loading .loading_popct {
+	position: fixed;
+}
+.loading {
+	background-color: #000;
+	opacity: 0.9
+}
+.loading .loading_popct{
+	top: 40%;
+    left: 50%;
+    margin-left: -75px;
+}
+.loading_popct img{
+	width:150px;
+	height:150px;
+}
+.loading {
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.loading .loading_popbg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(147, 154, 155, .1);
+}
+/*weUI公共*/
+.weui-loadmore .weui-loadmore__tips{
+	background: initial;
+	color:#666;
+}
+.weui-panel__ft{
+	color:#999;
+}
+.invitation-info:last-child .weui-media-box{
+	border: none;
+}
+.weui-media-box{
+	padding: 0;
+	border-bottom: 2px solid #e5e5e5;
+	margin-top: 10px;
+	margin-right: 15px;
+	padding-bottom: 10px;
+	margin-left: 15px;
+}
+.weui-media-box__title{
+	font-size:.8rem;
+}
+.weui-media-box__desc{
+    font-size:.7rem;
+}
+.weui-cells{
+	font-size: .8rem;
+}
+.weui-cell{
+	padding: .6rem;
+}
+.weui-navbar__item:after,.weui-navbar:after,.weui-panel:before{
+	display:none;
+}
+.weui-media-box_appmsg img.weui-media-box__thumb{
+	vertical-align:middle;
+}
+.weui-media-box_appmsg .weui-media-box__hd{
+	width:3rem;
+	height:3rem;
+	line-height:3rem;
+}
+a.weui-media-box{
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.modify-cell:after{
+	content: " ";
+    display: inline-block;
+    height: .35rem;
+    width: .35rem;
+    border-width: 2px 2px 0 0;
+    border-color: #c8c8cd;
+    border-style: solid;
+    -webkit-transform: matrix(.71,.71,-.71,.71,0,0);
+    transform: matrix(.71,.71,-.71,.71,0,0);
+    position: relative;
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    margin-top: -4px;
+    right: 20px;
+}
+/*公有*/
+/*优惠券*/
+.coupon .weui-panel{
+	border-radius:5px;
+}
+.coupon-status{
+	position:absolute;
+	top:0;
+	right:0;
+	border-radius:0;
+	min-width:2.9rem;
+	line-height:1.5;
+	font-size:.6rem;
+}
+.coupon-status.used{
+	background:#999;
+}
+.barcode{
+	width:90%;
+	margin-right:5%;
+}
+.coupon-detail.weui-form-preview__bd{
+	font-size:.6rem;
+}
+/*优惠券*/
+/*用户信息*/
+.small-check label{
+	width:50%;
+	padding-left:0;
+	padding-right:0;
+	float:left;
+}
+.small-check label .weui-cell__hd{
+	width: 40%;
+    text-align: right;
+}
+.group-btn{
+	width:60%;
+	margin:1rem auto;
+}
+.customer-info input.weui-input{
+	max-width:92%;
+}
+.invitation .contain {
+	font-size: 0.8rem;
+	padding: 0 12px;
+	line-height: 2;
+	color: #333;
+	background:url(../assets/images/mainBg.jpg) no-repeat 0 139px;
+	background-size: 100%;
+}
+
+.invitation .contain section {
+	margin: 20px 0;
+}
+
+.invitation .contain section > p{
+	margin-top: 20px;
+}
+
+.invitation .contain .content-title {
+	border-bottom: solid 2px #7f7677;
+	color: #333;
+	letter-spacing: 5px;
+}
+
+.invitation .contain section ul {
+	margin: 20px 0 40px 20px;
+}
+.invitation .contain section .content-title {
+	padding-bottom: 10px;
+}
+.invitation .contain section .content-main {
+	padding-top: 20px;
+	color: #333;
+}
+.invitation .contain section ul .emTwo{
+	letter-spacing: 2px;
+	margin-left: 40px;
+}
+.invitation .contain section ul .emTwo1{
+	letter-spacing: 2px;
+	margin-left: 40px;
+}
+.invitation .contain section ul .weightText{
+	font-weight: 700;
+}
+.invitation .contain section ul .weightText1{
+	margin-bottom: 10px;
+}
+
+.invitation .contain .code-contain {
+	text-align: center;
+}
+
+.invitation .contain .code-contain .div-code {
+	display: inline-block;
+	font-size: 0.8rem;
+	color: #ffffff;
+	margin-bottom: 20px;
+}
+.invitation .contain .code-contain .div-code .inviteCode{
+	background: #fff;
+	border: 1px solid #666;
+	color: #88252e;
+	padding: 11px 30px;
+}
+
+.invitation .operation {
+	display: flex;
+}
+
+.invitation .operation button{
+	flex: 1;
+	font-size: 0.8rem;
+	padding: 7px;
+	background-color: #4f4345;
+	color: #5b1319;
+	background-color: #dd4b4d;
+	border: 3px solid #ea9293;
+	font-weight: 700;
+	letter-spacing: 4px;
+}
+
+.invitation .mask {
+	display: none;
+	position: fixed;
+	background-color: #000;
+	opacity: 0.7;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+.invitation .mask > img[name="shareText"] {
+	width: 200px;
+	position: absolute;
+	top: 30px;
+	right: 30px;
+}
+
+.invitation .mask > img[name="arrow"] {
+	position: absolute;
+	width: 60px;
+	right: 10px;
+}
+
+.invitation .mask > i.close {
+	padding: 15px;
+	font-size: 1.5rem;
+	color: #fff;
+	position: absolute;
+	left: 30px;
+	top: 30px
+}
+
+.semicircle {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	background-color: #f6f6f6;
+	border-radius: 50%;
+}
+
+.left-semicircle {
+	margin-left: -5px;
+}
+
+.right-semicircle {
+	margin-right: -5px;
+}
+.flower{
+	width: 162px;
+	height: 30px;
+}

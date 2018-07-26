@@ -1,0 +1,7 @@
+spring:
+#  thymeleaf:
+#    prefix: classpath:/templates/
+server:
+  port: 8089
+  servlet:
+    context-path: /pugss-demo
